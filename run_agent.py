@@ -11,7 +11,7 @@ import concurrent.futures
 import tornado.process
 from tornado.ioloop import IOLoop
 
-import run_server
+import server
 t.ops.load_library(os.path.join(os.path.split(__file__)[0], 'render_cuda/build/librender.so'))
 
 ## (y,x)
@@ -138,7 +138,7 @@ def handle_sig(sig, _):
 
 ###### Launch agent proc pool, server proc, and configure error handling
 ## NOTE: inter-process pipes can break at the OS level - randomly - and only when submitting run_server to the executor.
-# If this happens, close all programs and kill all python processes. REBOOTING WILL NOT FIX IT - SOMEHOW - SOCKETS ARE FILE-BASED(?)
+# If this happens, close all programs and kill all python processes manually - rebooting will not fix.
 def setup_run():
     t.cuda.set_device(0)
 
